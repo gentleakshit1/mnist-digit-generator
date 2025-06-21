@@ -2,46 +2,204 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MNIST Digit Generator - Demo Video</title>
   <style>
-    body {
-      background: #f2f2f2;
-      font-family: sans-serif;
-      text-align: center;
-      padding: 2rem;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f9fc;
+      color: #2c3e50;
+      line-height: 1.6;
+    }
+
+    nav {
+      background: linear-gradient(90deg, #1e3c72, #2a5298);
+      color: white;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      flex-wrap: wrap;
+    }
+
+    nav h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    nav .candidate-id {
+      font-size: 1rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    nav .candidate-id:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+      transform: scale(1.05);
+    }
+
+    .container {
+      padding: 3rem 1rem;
+      text-align: center;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .container h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: #2d3436;
+    }
+
+    .container p {
+      font-size: 1.1rem;
+      max-width: 800px;
+      margin: 0 auto 2rem auto;
+      color: #555;
+      line-height: 1.8;
+    }
+
     iframe {
       width: 90%;
       max-width: 720px;
       height: 405px;
       border: none;
-      margin-top: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
     }
+
     a.button {
       display: inline-block;
       margin-top: 20px;
-      padding: 10px 20px;
+      padding: 12px 28px;
       background: #007BFF;
       color: white;
-      border-radius: 5px;
+      border-radius: 6px;
       text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: background 0.3s ease;
     }
+
     a.button:hover {
       background: #0056b3;
+    }
+
+    .developer-info {
+      margin-top: 40px;
+    }
+
+    .developer-info h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: #2d3436;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+
+    .social-links a {
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 10px 20px;
+      border-radius: 5px;
+      background-color: #eee;
+      color: #333;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background-color: #ddd;
+      transform: scale(1.05);
+    }
+
+    footer {
+      background: #1e3c72;
+      color: white;
+      padding: 1.2rem;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .container h2 {
+        font-size: 1.6rem;
+      }
+
+      iframe {
+        height: 250px;
+      }
+
+      a.button {
+        padding: 10px 20px;
+      }
+
+      .social-links {
+        flex-direction: column;
+        gap: 10px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>MNIST Digit Generator</h1>
-  <p>Watch the project demonstration below:</p>
-  <iframe 
-    src="https://www.youtube.com/watch?v=VkWtDlXcio0" 
-    allowfullscreen>
-  </iframe>
-  <br />
-  <a class="button" href="https://www.youtube.com/watch?v=VkWtDlXcio0" target="_blank">
-    Open in YouTube
-  </a>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <h1>MNIST Digit Generator</h1>
+    <div class="candidate-id">🆔 Candidate ID: <strong>IN009250</strong></div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h2>🎥 Watch the Project Demonstration</h2>
+    <p>
+      Due to memory constraints, the full deployment of this ML project exceeded the capabilities of free-tier hosting platforms 
+      like Render, Railway, and Heroku. To ensure a seamless evaluation experience, I’ve recorded a video demonstration showcasing the full 
+      functionality, UI, and results of the application. Please view it below.
+    </p>
+    <iframe 
+      src="https://www.youtube.com/embed/VkWtDlXcio0" 
+      allowfullscreen>
+    </iframe>
+    <br />
+    <a class="button" href="https://www.youtube.com/watch?v=VkWtDlXcio0" target="_blank">
+      ▶️ Open in YouTube
+    </a>
+
+    <!-- Developer Info -->
+    <div class="developer-info">
+      <h3>👨‍💻 Developed by Akshit Sharma</h3>
+      <div class="social-links">
+        <a href="https://www.instagram.com/gentle.akshit/" target="_blank">📷 Instagram</a>
+        <a href="https://www.linkedin.com/in/gentleakshit/" target="_blank">🔗 LinkedIn</a>
+        <a href="https://github.com/gentleakshit1" target="_blank">💻 GitHub</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Akshit Sharma — Built with passion, code, and a little coffee ☕
+  </footer>
+
 </body>
 </html>
