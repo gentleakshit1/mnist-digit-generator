@@ -76,6 +76,6 @@ def generate():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# --- Local Development Only ---
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))  # default to 5000 if PORT not set
+    app.run(host="0.0.0.0", port=port)
