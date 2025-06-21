@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Handwritten Digit Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+
+        select, button {
+            font-size: 16px;
+            padding: 8px 12px;
+            margin: 10px;
+        }
+
+        h1 {
+            font-size: 26px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .image-container img {
+            width: 84px;
+            height: 84px;
+            border: 2px solid #888;
+            border-radius: 8px;
+            background-color: #eee;
+        }
+
+        .loader {
+            display: none;
+            font-style: italic;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Handwritten Digit Image Generator</h1>
+    <p>Choose a digit below and generate 5 handwritten-style images using your own trained model.</p>
+
+    <label for="digit">Select Digit:</label>
+    <select id="digit">
+        <script>
+            for (let i = 0; i <= 9; i++) {
+                document.write(`<option value="${i}">${i}</option>`);
+            }
+        </script>
+    </select>
+
+    <button onclick="generateImages()">Generate Images</button>
+
+    <div class="loader" id="loader">Generating images...</div>
+
+    <div class="image-container" id="images"></div>
+
+    <script>
+        async function generateImages() {
+            const digit = document.getElementById("digit").value;
+            const loader = document.getElementById("loader");
+            const container = document.getElementById("images");
+
+            loader.style.display = "block";
+            container.innerHTML = "";
+
+            try {
+                const response = await fetch("/generate", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ digit: digit })
+                });
+
+                const data = await response.json();
+                loader.style.display = "none";
+
+                data.images.forEach(url => {
+                    const img = document.createElement("img");
+                    img.src = url;
+                    container.appendChild(img);
+                });
+            } catch (error) {
+                loader.style.display = "none";
+                alert("Error generating images. Check your server.");
+            }
+        }
+    </script>
+</body>
+</html>
