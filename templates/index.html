@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Handwritten Digit Generator</title>
     <style>
         :root {
             --bg-color: #ffffff;
             --text-color: #000000;
-            --btn-bg: #007bff;
             --btn-text: #ffffff;
             --card-bg: #f0f0f0;
             --img-border: #ccc;
+            --navbar-bg: #007bff;
         }
 
         [data-theme="dark"] {
             --bg-color: #121212;
             --text-color: #ffffff;
-            --btn-bg: #444;
             --btn-text: #ffffff;
             --card-bg: #1e1e1e;
             --img-border: #555;
+            --navbar-bg: #007bff;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -32,19 +38,18 @@
         }
 
         nav {
-            background-color: var(--btn-bg);
+            background-color: var(--navbar-bg);
             color: var(--btn-text);
-            padding: 15px 30px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
         .nav-left {
             font-size: 20px;
-            letter-spacing: 0.5px;
         }
 
         .theme-toggle {
@@ -66,7 +71,7 @@
         }
 
         h1 {
-            font-size: 30px;
+            font-size: 26px;
             margin-bottom: 10px;
         }
 
@@ -75,16 +80,23 @@
             margin-bottom: 30px;
         }
 
-        select, button {
+        label,
+        select,
+        button {
             font-size: 16px;
+            margin: 10px 5px;
+        }
+
+        select,
+        button {
             padding: 10px 16px;
-            margin: 10px;
             border-radius: 6px;
             border: 1px solid #ccc;
         }
 
         button {
-            background-color: var(--btn-bg);
+            background-color: #007bff;
+            /* Fixed blue color */
             color: var(--btn-text);
             border: none;
             cursor: pointer;
@@ -116,7 +128,7 @@
             border-radius: 10px;
             border: 2px solid var(--img-border);
             background-color: var(--card-bg);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             opacity: 0;
             transform: scale(0.9);
             transition: all 0.5s ease-in-out;
@@ -126,8 +138,46 @@
             opacity: 1;
             transform: scale(1);
         }
+
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .nav-left {
+                font-size: 18px;
+            }
+
+            main {
+                padding: 30px 15px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .image-container {
+                gap: 14px;
+            }
+
+            .image-container img {
+                width: 72px;
+                height: 72px;
+            }
+
+            select,
+            button {
+                font-size: 15px;
+                width: 100%;
+                max-width: 280px;
+            }
+        }
     </style>
+
 </head>
+
 <body data-theme="light">
 
     <nav>
@@ -137,7 +187,7 @@
 
     <main>
         <h1>Handwritten Digit Image Generator</h1>
-        <p>Choose a digit below and generate 5 handwritten-style images using your trained model.</p>
+        <p>Choose a digit below and generate 5 handwritten-style images.</p>
 
         <label for="digit">Select Digit:</label>
         <select id="digit">
@@ -151,7 +201,6 @@
         <button onclick="generateImages()">Generate Images</button>
 
         <div class="loader" id="loader">Generating images...</div>
-
         <div class="image-container" id="images"></div>
     </main>
 
@@ -189,7 +238,7 @@
                     const img = document.createElement("img");
                     img.src = url;
                     container.appendChild(img);
-                    setTimeout(() => img.classList.add("show"), 50); // Animate appearance
+                    setTimeout(() => img.classList.add("show"), 50);
                 });
             } catch (error) {
                 loader.style.display = "none";
@@ -198,4 +247,5 @@
         }
     </script>
 </body>
+
 </html>
