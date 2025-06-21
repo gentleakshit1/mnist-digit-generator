@@ -4,4 +4,3 @@ __pycache__/
 *.pt
 *.pth
 *.ipynb_checkpoints
-static/generated/

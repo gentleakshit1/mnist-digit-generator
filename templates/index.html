@@ -4,20 +4,102 @@
     <meta charset="UTF-8">
     <title>Handwritten Digit Generator</title>
     <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --btn-bg: #007bff;
+            --btn-text: #ffffff;
+            --card-bg: #f0f0f0;
+            --img-border: #ccc;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --btn-bg: #444;
+            --btn-text: #ffffff;
+            --card-bg: #1e1e1e;
+            --img-border: #555;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.4s, color 0.4s;
+        }
+
+        nav {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .nav-left {
+            font-size: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: var(--btn-text);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg);
+        }
+
+        main {
             text-align: center;
-            padding: 40px;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 30px;
         }
 
         select, button {
             font-size: 16px;
-            padding: 8px 12px;
+            padding: 10px 16px;
             margin: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
         }
 
-        h1 {
-            font-size: 26px;
+        button {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .loader {
+            font-style: italic;
+            margin-top: 20px;
+            display: none;
         }
 
         .image-container {
@@ -31,38 +113,58 @@
         .image-container img {
             width: 84px;
             height: 84px;
-            border: 2px solid #888;
-            border-radius: 8px;
-            background-color: #eee;
+            border-radius: 10px;
+            border: 2px solid var(--img-border);
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.5s ease-in-out;
         }
 
-        .loader {
-            display: none;
-            font-style: italic;
-            margin-top: 20px;
+        .image-container img.show {
+            opacity: 1;
+            transform: scale(1);
         }
     </style>
 </head>
-<body>
-    <h1>Handwritten Digit Image Generator</h1>
-    <p>Choose a digit below and generate 5 handwritten-style images using your own trained model.</p>
+<body data-theme="light">
 
-    <label for="digit">Select Digit:</label>
-    <select id="digit">
-        <script>
-            for (let i = 0; i <= 9; i++) {
-                document.write(`<option value="${i}">${i}</option>`);
-            }
-        </script>
-    </select>
+    <nav>
+        <div class="nav-left">Digit Generator</div>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">🌙</button>
+    </nav>
 
-    <button onclick="generateImages()">Generate Images</button>
+    <main>
+        <h1>Handwritten Digit Image Generator</h1>
+        <p>Choose a digit below and generate 5 handwritten-style images using your trained model.</p>
 
-    <div class="loader" id="loader">Generating images...</div>
+        <label for="digit">Select Digit:</label>
+        <select id="digit">
+            <script>
+                for (let i = 0; i <= 9; i++) {
+                    document.write(`<option value="${i}">${i}</option>`);
+                }
+            </script>
+        </select>
 
-    <div class="image-container" id="images"></div>
+        <button onclick="generateImages()">Generate Images</button>
+
+        <div class="loader" id="loader">Generating images...</div>
+
+        <div class="image-container" id="images"></div>
+    </main>
 
     <script>
+        let currentTheme = "light";
+
+        function toggleTheme() {
+            const body = document.body;
+            currentTheme = body.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            body.setAttribute("data-theme", currentTheme);
+            document.querySelector(".theme-toggle").textContent = currentTheme === "dark" ? "☀️" : "🌙";
+        }
+
         async function generateImages() {
             const digit = document.getElementById("digit").value;
             const loader = document.getElementById("loader");
@@ -87,6 +189,7 @@
                     const img = document.createElement("img");
                     img.src = url;
                     container.appendChild(img);
+                    setTimeout(() => img.classList.add("show"), 50); // Animate appearance
                 });
             } catch (error) {
                 loader.style.display = "none";

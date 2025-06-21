@@ -6,6 +6,7 @@ class Generator(nn.Module):
         super(Generator, self).__init__()
         self.label_emb = nn.Embedding(num_classes, num_classes)
         input_dim = z_dim + num_classes
+        self.img_shape = img_shape
 
         self.model = nn.Sequential(
             nn.Linear(input_dim, 256),
@@ -17,7 +18,6 @@ class Generator(nn.Module):
             nn.Linear(1024, int(torch.prod(torch.tensor(img_shape)))),
             nn.Tanh()
         )
-        self.img_shape = img_shape
 
     def forward(self, z, labels):
         label_embedding = self.label_emb(labels)
